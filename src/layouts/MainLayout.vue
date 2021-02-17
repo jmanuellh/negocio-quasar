@@ -14,8 +14,18 @@
         <q-toolbar-title>
           Quasar App
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-select
+          :label="$t('language')"
+          v-model="lang"
+          :options="langOptions"
+          style="min-width: 9rem"
+          @input="changeSelectLanguage"
+        >
+          <template v-slot:prepend>
+            <q-icon name="place" />
+          </template>
+        </q-select>
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
 
@@ -70,8 +80,23 @@ export default {
   components: { EssentialLink },
   data () {
     return {
+      langOptions: [
+        { value: 'en-us', label: 'English' },
+        { value: 'es-mx', label: 'Español' }
+      ],
+      lang: { value: 'es-mx', label: 'Español' },
       leftDrawerOpen: false,
       essentialLinks: linksData
+    }
+  },
+  mounted () {
+    console.log(this.$q.lang.getLocale())
+    console.log(this.$i18n.available_locales)
+  },
+  methods: {
+    changeSelectLanguage () {
+      this.$i18n.locale = this.lang.value
+      console.log(this.$i18n.locale)
     }
   }
 }

@@ -4,5 +4,6 @@
 export default {
   failed: 'Acción error',
   success: 'Acción bien',
-  titleCustomers: 'Clientes'
+  titleCustomers: 'Clientes',
+  language: 'Idioma'
 }
