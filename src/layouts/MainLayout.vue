@@ -82,21 +82,16 @@ export default {
     return {
       langOptions: [
         { value: 'en-us', label: 'English' },
-        { value: 'es-mx', label: 'Español' }
+        { value: 'es', label: 'Español' }
       ],
-      lang: { value: 'es-mx', label: 'Español' },
+      lang: { value: 'es', label: 'Español' },
       leftDrawerOpen: false,
       essentialLinks: linksData
     }
   },
-  mounted () {
-    console.log(this.$q.lang.getLocale())
-    console.log(this.$i18n.available_locales)
-  },
   methods: {
     changeSelectLanguage () {
       this.$i18n.locale = this.lang.value
-      console.log(this.$i18n.locale)
     }
   }
 }
