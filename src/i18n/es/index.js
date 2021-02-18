@@ -5,5 +5,6 @@ export default {
   failed: 'Acción error',
   success: 'Acción bien',
   titleCustomers: 'Clientes',
-  language: 'Idioma'
+  language: 'Idioma',
+  btnAdd: 'Agregar'
 }

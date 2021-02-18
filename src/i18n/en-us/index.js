@@ -5,5 +5,6 @@ export default {
   failed: 'Action failed',
   success: 'Action was successful',
   titleCustomers: 'Customers',
-  language: 'Language'
+  language: 'Language',
+  btnAdd: 'Add'
 }
