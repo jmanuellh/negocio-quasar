@@ -90,8 +90,12 @@ export default {
     }
   },
   methods: {
-    changeSelectLanguage () {
+    async changeSelectLanguage () {
       this.$i18n.locale = this.lang.value
+      await import(`quasar/lang/${this.$i18n.locale}`)
+        .then(lang => {
+          this.$q.lang.set(lang.default)
+        })
     }
   }
 }
