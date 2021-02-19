@@ -1,10 +1,10 @@
-// This is just an example,
-// so you can safely delete all default props below
+import customers from './customers'
 
 export default {
   failed: 'Action failed',
   success: 'Action was successful',
   titleCustomers: 'Customers',
   language: 'Language',
-  btnAdd: 'Add'
+  btnAdd: 'Add',
+  customers
 }

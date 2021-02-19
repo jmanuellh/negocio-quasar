@@ -1,12 +1,11 @@
 <template>
   <q-page padding>
-    <h1 class="q-ma-sm">{{ $t('titleCustomers') }}</h1>
     <crud-customers />
   </q-page>
 </template>
 
 <script>
-import CrudCustomers from 'components/customers/CrudCustomers.vue'
+import CrudCustomers from 'components/customers/CrudCustomers'
 
 export default {
   name: 'PageCustomers',
@@ -23,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 h1 {
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 2rem;
+  line-height: .9rem;
 }
 </style>
