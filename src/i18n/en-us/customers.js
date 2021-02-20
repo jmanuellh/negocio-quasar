@@ -6,5 +6,6 @@ export default {
   labelClose: 'Close',
   title: 'Customers',
   name: 'Name',
-  number: 'Number'
+  number: 'Number',
+  actions: 'Actions'
 }

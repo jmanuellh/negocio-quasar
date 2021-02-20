@@ -6,5 +6,6 @@ export default {
   labelClose: 'Cerrar',
   title: 'Clientes',
   name: 'Nombre',
-  number: 'Número'
+  number: 'Número',
+  actions: 'Acciones'
 }

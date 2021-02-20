@@ -4,13 +4,26 @@
     div(class="flex justify-between items-center")
       h4(class="q-ma-md") Clientes
       q-btn(
-        @click="showDialog = true"
+        @click="showDialogAdd = true"
         :label="$t('btnAdd')"
         color="primary"
         class="q-ma-md"
       )
+
+    q-table(
+      :data="items"
+      :columns="columns"
+      row-key="id"
+    )
+      //- template(slot="col-image_url" scope="cell")
+      //-   tooltip-button(:url="cell.row.image_url")
+      template(v-slot:body="props")
+        q-tr(:props="props")
+          q-td(key="actions" :props="props")
+            q-btn(color='primary', label='Editar' @click="editing(props.row.id)")
+            q-btn(color='primary', label='Eliminar' @click="showDialogDelete = true")
     // Dialog of Btn Add
-    q-dialog(v-model="showDialog" @hide="cleanForm")
+    q-dialog(v-model="showDialogAdd" @hide="cleanForm")
       q-card(style="min-width: 350px")
         q-card-section(class="row")
           div(class="text-h6") {{$t('customers.titleForm')}}
@@ -44,25 +57,42 @@
             class="q-ml-sm"
             v-close-popup
           )
-          q-btn(
-            @click="add"
-            :label="$t('customers.labelAdd')"
-            color="primary"
-            v-close-popup
-          )
-    q-table(
-      :data="items"
-      :columns="columns"
-      row-key="id"
-    )
+          span(v-if="customer.id != undefined")
+            q-btn(
+              @click="update"
+              label="Actualizar"
+              color="primary"
+              v-close-popup
+            )
+          span(v-else)
+            q-btn(
+              @click="add"
+              :label="$t('customers.labelAdd')"
+              color="primary"
+              v-close-popup
+            )
+    // Dialog of Btn Delete
+    //- q-dialog(v-model="showDialog" @hide="cleanForm")
+    //-   q-card(style="min-width: 350px")
+    //-     q-card-section(class="row")
+    q-dialog(v-model="showDialogDelete")
+      q-card
+        q-card-section(class="row items-center")
+          q-avatar(:icon="mdiDelete" color="primary" text-color="white")
+          span(class="q-ml-sm") Eliminar elemento
+        q-card-actions(align="right")
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn flat label="Eliminar" color="primary" v-close-popup />
 </template>
 
 <script>
+import { mdiDelete } from '@quasar/extras/mdi-v5'
+
 export default {
   data () {
     return {
       items: [],
-      showDialog: false,
+      showDialogAdd: false,
       customer: {
         name: '',
         number: 0
@@ -81,12 +111,18 @@ export default {
           name: 'number',
           label: this.$t('customers.number'),
           field: 'number'
+        },
+        {
+          name: 'actions',
+          label: this.$t('customers.actions'),
+          field: 'actions'
         }
       ]
     }
   },
   created () {
     // this.getCustomers()
+    this.mdiDelete = mdiDelete
   },
   methods: {
     cleanForm () {
@@ -108,6 +144,16 @@ export default {
     delete (id) {
       this.$axios.delete('/customers/', +id).then(() => {
         this.getCustomers()
+      })
+    },
+    editing (item) {
+      this.customer = item
+      this.showDialogAdd = true
+    },
+    update () {
+      this.$axios.put('/customers/' + this.customer, this.customer.id).then(() => {
+        this.getCustomers()
+        this.cleanForm()
       })
     }
   }
